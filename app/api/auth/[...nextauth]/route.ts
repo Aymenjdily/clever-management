@@ -48,32 +48,43 @@ const authOptions = {
       },
     }),
   ],
+  callbacks:{
+    //@ts-ignore
+    async jwt({ token, user, session }){
+      console.log("jwt callback", { token, user, session })
+
+      if(user){
+        return {
+          ...token,
+          id: user.id,
+          role: user.role,
+          name: user.name,
+          email: user.email,
+          image: user.image
+        }
+      }
+
+      return token
+    },
+    //@ts-ignore
+    async session({ session, token, user }){
+      console.log("session callback", { session, token, user })
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          role: token.role
+        }
+      }
+      return session
+    }
+  },
   pages: {
     signIn: "/",
   },
   session: {
     strategy: "jwt",
-  },
-  callbacks: {
-    async jwt(token:any, user:any) {
-      // Add user information to the token
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
-        token.name = user.name;
-        token.email = user.email;
-        token.image = user.image;
-        // Assuming you have a 'role' field in your user model
-        // Add other information as needed
-      }
-      return token;
-    },
-
-    async session(session:any, user:any) {
-      // Add user information to the session
-      session.user = user;
-      return session;
-    },
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === "development",

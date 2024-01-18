@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { Theme } from "@radix-ui/themes";
+import { Box, Flex, Grid } from "@radix-ui/themes";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +21,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme>{children}</Theme>
+        <Theme>
+          <Flex
+            className="min-h-screen bg-gradient-to-r from-yellowColor/60 to-yellowColor"
+            align={"center"}
+            justify={"center"}
+            p="6"
+          >
+            <Flex className="shadow-xl rounded-2xl">
+              <Box className="relative w-96 h-100 lg:flex hidden">
+                <Image
+                  src="/login.jpg"
+                  alt="art-image"
+                  quality={100}
+                  fill
+                  className="object-cover rounded-l-2xl"
+                />
+              </Box>
+              {children}
+            </Flex>
+          </Flex>
+        </Theme>
       </body>
     </html>
   );
