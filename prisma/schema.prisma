@@ -43,10 +43,18 @@ model User {
   email    String?   @unique
   image    String?
   password String
+  role     Roles
   accounts Account[]
   sessions Session[]
   order    order[]
   items    items[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Roles {
+  admin
+  user
 }
 
 model order {
