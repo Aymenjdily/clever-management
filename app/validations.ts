@@ -4,6 +4,10 @@ export const OrderSchema = z.object({
     title: z.string().min(3, "Order title is required").max(255),
     description: z.string().min(10, "Order description is required").max(4500).optional(),
 })
+export const ItemSchema = z.object({
+    name: z.string().min(3, "Item name is required").max(255),
+    price: z.string().min(10, "Item price is required").max(4).optional(),
+})
 
 export const UserSchema = z.object({
     name: z.string().min(3, "Name is required").max(15),
