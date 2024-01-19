@@ -6,6 +6,7 @@ import { Theme } from "@radix-ui/themes";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import AuthProvider from "@/context/AuthProvider";
 import SideBar from "@/components/SideBar";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,12 @@ export default function RootLayout({
           <Theme>
             <Flex>
               <SideBar />
-              {children}
+              <Flex direction={"column"} className="w-full" gap="3">
+                <Header />
+                <Box p="5" className="bg-[#F9F9F9] rounded-2xl">
+                  {children}
+                </Box>
+              </Flex>
             </Flex>
           </Theme>
         </AuthProvider>
